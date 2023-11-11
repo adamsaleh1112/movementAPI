@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Login Page</title>
+  
+  <!-- CSS STYLE CLASSES -->
+  <style>
+    body {
+      font-family: Inter, sans-serif;
+      background-color: #FFFFFF;
+    }
+    .container h1 {
+      text-align: center;
+    }
+    .container label {
+      display: block;
+      margin-bottom: 10px;
+    }
+    .container input[type="text"],
+    .container input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    .container button {
+      width: 100px;
+      height: 100px;
+      padding: 10px;
+      background-color: #202020;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+    .container button:hover {
+      background-color: #000000;
+    }
+    .container .create-account {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      height: 100vh;
+    }
+    .quadrant {
+      border: 3px solid gray;
+      padding: 10px;
+    }
+    .grid-container {
+      display: grid;
+      grid-template-columns: auto auto auto;
+      background-color: #FFFFFF;
+      padding: 10px;
+    }
+    .grid-item {
+      background-color: rgba(255, 255, 255, 0.8);
+      border: 0px solid rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      font-size: 30px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="quadrant"></div>
+    <div class="quadrant button">
+      <div class="grid-container">
+        <div class="grid-item"></div> <!-- EMPTY GRID SPACE -->
+        <div class="grid-item">
+
+          <button type="button" id="moveForward" onclick="sendCommand('forward')"> <!-- UP BUTTON -->
+           <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Green-Up-Arrow.svg/1077px-Green-Up-Arrow.svg.png" width="50" height="50">
+          </button>
+
+        </div>
+        <div class="grid-item"></div> <!-- EMPTY GRID SPACE -->
+        <div class="grid-item">
+
+          <button type="button" id="moveLeft" onclick="sendCommand('left')"> <!-- LEFT BUTTON -->
+           <img src="https://www.freeiconspng.com/thumbs/left-arrow/red-arrow-left-pointing-5.png" width="50" height="50">
+          </button>
+
+        </div>
+        <div class="grid-item">
+
+          <button type="button" id="moveLeft" onclick="sendCommand('go')"> <!-- GO BUTTON -->
+           <img src="https://images.vexels.com/media/users/3/157679/isolated/preview/8d24929b0ebd57e691ea9db331e1c1fa-youtube-play-button-logo.png" width="50" height="50">
+          </button>
+
+          <button type="button" id="moveLeft" onclick="sendCommand('stop')"> <!-- STOP BUTTON -->
+           <img src="https://uxwing.com/wp-content/themes/uxwing/download/video-photography-multimedia/pause-button-red-icon.png" width="50" height="50">
+          </button>
+
+        </div>
+        <div class="grid-item">
+
+          <button type="button" id="moveRight" onclick="sendCommand('right')"> <!-- RIGHT BUTTON -->
+           <img src="https://www.mbot.com/wp-content/uploads/2022/03/66-663418_right-clipart-black-arrow-right-arrow-png-download.png" width="50" height="50">
+          </button>
+
+        </div>
+        <div class="grid-item"></div> <!-- EMPTY GRID SPACE -->
+        <div class="grid-item">
+
+          <button type="button" id="moveBackward" onclick="sendCommand('backward')"> <!-- DOWN BUTTON -->
+           <img src="https://www.freeiconspng.com/thumbs/arrow-down-icon-png/red-arrow-down-icon-png-30.png" width="50" height="50">
+          </button>
+
+        </div>
+        <div class="grid-item"></div> <!-- EMPTY GRID SPACE -->
+      </div>
+    </div>
+    <div class="quadrant"></div>
+    <div class="quadrant"></div>
+  </div>
+
+  <script>
+  function sendCommand(command) {
+    fetch('/move', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ 'command': command })
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error('Error:', error));
+  }
+  </script>
+
+</body>
+</html>
